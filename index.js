@@ -121,14 +121,6 @@ async function botstr(findStr){
       manager.addDocument('en',"1897-12-12",'birthdate');
       manager.addDocument('en',"1976-01-09",'birthdate');
 
-
-      //***********************************************************************************//
-      //************************************************************************************//
-      //************************************************************************************//
-      //************************************************************************************//
-      //************************************************************************************//
-      //************************************************************************************//
-      //************************************************************************************//
       // Train also the NLG..........Train it to answer
       manager.addAnswer('en', 'gSearch', '<div><form action="https://www.google.com/search" method="GET" target="_blanck"><input type="text" name="q" placeholder="Google Search" autocomplete="off"><input type="submit" value="Google Search"></form></div>');
 
@@ -238,7 +230,7 @@ io.on('connection', function(socket){
     botstr(msg)
         .then(result => {
             if(result == null){
-              io.emit('chat message', "Do you want to know how many days till your next birthday ?");
+              io.emit('chat message', "Do you want to know how many days till your next birthday (yes/no) ?");
             }
             else{
               io.emit('chat message', result);
