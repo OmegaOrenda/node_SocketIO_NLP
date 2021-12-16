@@ -216,15 +216,23 @@ io.on('connection', function(socket){
     var myDate = new Date(msg);
     
     io.emit('chat message', msg);
-    console.log(typeof(myDate));
-    let utc = new Date().toISOString().slice(0, 10);
-    console.log("###################"+utc);
-    var today = new Date(utc);
-    console.log("###############12####"+today);
     if(myDate!= "Invalid Date"){
-      var differenceInDays=(today.getTime()-myDate.getTime())/(1000*3600*24);
-      console.log("###################"+differenceInDays);
-      io.emit('chat message', "There are " + differenceInDays +" days left in your birthday");
+
+      let today = new Date();
+        let bday = myDate;
+        let age = today.getFullYear() - bday.getFullYear();
+        
+        let upcomingBday = new Date(today.getFullYear(), bday.getMonth(), bday.getDate());
+        
+        if(today > upcomingBday) {
+          upcomingBday.setFullYear(today.getFullYear() + 1);
+        }
+        
+        var one_day = 24 * 60 * 60 * 1000;
+        
+        let daysLeft = Math.ceil((upcomingBday.getTime() - today.getTime()) / (one_day));
+       
+      io.emit('chat message', "There are " + daysLeft +" days left in your birthday");
     }
     else{
     botstr(msg)
